@@ -6,40 +6,52 @@
 
 \RequirePackage{graphicx}
 \RequirePackage{xkeyval}
-\RequirePackage{myifdef}
 
+\makeatletter
+%%
+%% ifequals{a}{b}{<true>}
+%%     Insert "<true>" if a=b
+%%
+\def\ifequ@ls#1#2#3{%
+        \def\IfEqualsElseLHS{#1}%
+        \def\IfEqualsElseRHS{#2}%
+        \ifx\IfEqualsElseLHS\IfEqualsElseRHS%
+        #3%
+        \fi%
+}
 
-% Debugging - ja/nein
+% Debugging - Mark the anchor points of inserted texts with two concentric
+% circles as debugging aid
 \newif\ifAIdebug
 \DeclareOptionX{debug}[false]{%
-    \ifequals{#1}{true} {\AIdebugtrue}%
-    \ifequals{#1}{false}{\AIdebugfalse}%
+    \ifequ@ls{#1}{true} {\AIdebugtrue}%
+    \ifequ@ls{#1}{false}{\AIdebugfalse}%
 }
 
 % Obey AI font sizes
 \newif\ifAIfontsize
 \DeclareOptionX{fontsize}[false]{%
-    \ifequals{#1}{true} {\AIfontsizetrue}%
-    \ifequals{#1}{false}{\AIfontsizefalse}%
+    \ifequ@ls{#1}{true} {\AIfontsizetrue}%
+    \ifequ@ls{#1}{false}{\AIfontsizefalse}%
 }
 
 % Use AI font mapping
 \newif\ifAIfontmapping
 \DeclareOptionX{fontmapping}[false]{%
-    \ifequals{#1}{true} {\AIfontmappingtrue}%
-    \ifequals{#1}{false}{\AIfontmappingfalse}%
+    \ifequ@ls{#1}{true} {\AIfontmappingtrue}%
+    \ifequ@ls{#1}{false}{\AIfontmappingfalse}%
 }
 
 % Use AI text colors 
 \newif\ifAIcolor
 \DeclareOptionX{color}[false]{%
-    \ifequals{#1}{true} {\AIcolortrue}%
-    \ifequals{#1}{false}{\AIcolorfalse}%
+    \ifequ@ls{#1}{true} {\AIcolortrue}%
+    \ifequ@ls{#1}{false}{\AIcolorfalse}%
 }
 
 \DeclareOptionX{rotate}[false]{%
-    \ifequals{#1}{true} {\gdef\AIrotate##1##2{\rotatebox{##1}{##2}}}%
-    \ifequals{#1}{false}{\gdef\AIrotate##1##2{##2}}%
+    \ifequ@ls{#1}{true} {\gdef\AIrotate##1##2{\rotatebox{##1}{##2}}}%
+    \ifequ@ls{#1}{false}{\gdef\AIrotate##1##2{##2}}%
 }
 
 \DeclareOptionX{prefix}[]{%
@@ -68,3 +80,4 @@
 \AImapfont{Myriad-Italic}{\sffamily\itshape}
 \AImapfont{Myriad-BoldItalic}{\sffamily\itshape\bfseries}
 
+\makeatother

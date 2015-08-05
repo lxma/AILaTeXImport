@@ -34,7 +34,8 @@ AutoSaveAsPDF = true;
 AutoSaveAsEPS = false;
 
 function uniq( A ){
-    var buf = {}, result = [];
+    var buf = {};
+    var result = [];
     
     for(var i = 0, l = A.length; i < l; ++i){
         if(!buf.hasOwnProperty(A[i])) {
@@ -46,8 +47,7 @@ function uniq( A ){
 }
 
 
-function saveAsPDF( aDocument )
-{
+function saveAsPDF( aDocument ){
     var theDocumentName = aDocument.name;
 
     var pdfSaveOptions = new PDFSaveOptions();
@@ -58,12 +58,9 @@ function saveAsPDF( aDocument )
 
     var docPath = aDocument.path;
     var docPathStr = docPath.toString();
-    if (docPathStr.length > 1)
-    {
+    if (docPathStr.length > 1)    {
         var documentPath = aDocument.path + "/" + aDocument.name;               
-    }
-    else
-    {
+    } else {
         // This is a brand new file and doesn't have a path yet,
         // so put it in the illustrator application folder.
         var documentPath = path + "/" + aDocument.name;
@@ -72,20 +69,15 @@ function saveAsPDF( aDocument )
     aDocument.saveAs(theFile, pdfSaveOptions);
 }
 
-function saveAsEPS( aDocument )
-{
-    var theDocumentName = aDocument.name;
-    
+function saveAsEPS( aDocument ) {
+    var theDocumentName = aDocument.name;    
     var epsSaveOptions = new EPSSaveOptions();
     epsSaveOptions.preserveEditability = true;
     var docPath = aDocument.path;
     var docPathStr = docPath.toString();
-    if (docPathStr.length > 1)
-    {
+    if (docPathStr.length > 1) {
         var documentPath = aDocument.path + "/" + aDocument.name;               
-    }
-    else
-    {
+    } else {
         // This is a brand new file and doesn't have a path yet,
         // so put it in the illustrator application folder.
         var documentPath = path + "/" + aDocument.name;
@@ -94,33 +86,31 @@ function saveAsEPS( aDocument )
     aDocument.saveAs(theFile, epsSaveOptions);
 }
 
-function texjust( just )
-{
-    if( just == Justification.LEFT )
+function texjust( just ) {
+    if( just == Justification.LEFT ) {
         return "l";
-    else if ( just == Justification.RIGHT )
+    } else if ( just == Justification.RIGHT ) {            
         return "r";
-    else
+    } else {
         return "";
+    }
 }
 
 
-function basename( filename )
-{
-    var punktWo = filename.lastIndexOf( "\." );
+function basename( filename ){
+    var whereIsDot = filename.lastIndexOf( "\." );
 
-    if( punktWo > 0 ) {
-        return filename.substr( 0, punktWo );
+    if( whereIsDot > 0 ) {
+        return filename.substr( 0, whereIsDot );
     }
     else {
-        alert( "Konnte " + filename + " nicht zu .tex erweitern!" );
+        alert( "Could not find extension of " + filename+ "!" );
         return filename;
     }
 }
 
 
-function rotationOfMatrix( matrix )
-{
+function rotationOfMatrix( matrix ){
     // we only use the image of the first column vector (x,y) ...
     var x = matrix.mValueA;
     var y = matrix.mValueB;
@@ -151,33 +141,34 @@ function rotationOfMatrix( matrix )
         }
     }
 
-    return { pre:  "\\AIrotate{" + angle + "}{",
-             post: "}" };
+    return {
+        pre  : "\\AIrotate{" + angle + "}{",
+        post : "}"
+    };
 }
 
 
 function extremeCoords( items, bbox )
 {
-    var links = bbox[0];
-    var oben = bbox[1];
-    var rechts = bbox[2];
-    var unten = bbox[3];
+    var left = bbox[0];
+    var top = bbox[1];
+    var right = bbox[2];
+    var bottom = bbox[3];
 
     for( var i = 0; i < items.length; i++ ) {
         var x = items[i].anchor[0];
         var y = items[i].anchor[1];
-        if( x < links ) links = x;
-        if( x > rechts ) rechts = x;
-        if( y < unten ) unten = y;
-        if( y > oben ) oben = y;
+        if( x < left )   left   = x;
+        if( x > right )  right  = x;
+        if( y < bottom ) bottom = y;
+        if( y > top )    top    = y;
     }
 
-    return new Array( links, oben, rechts, unten );
+    return new Array( left, top, right, bottom );
 }
 
 
-function rgbColor( color )
-{
+function rgbColor( color ){
     if( color.typename === "RGBColor"
         && ( color.red > 0 || color.green > 0 || color.blue > 0 ) ) {
         return "\\AIcolor{" + color.red / 255 + "}{" + color.green / 255 + "}{" + color.blue / 255 + "}";
@@ -187,18 +178,16 @@ function rgbColor( color )
 }
 
 
-function mergeMultilines( inputString )
-{
+function mergeMultilines( inputString ){
     var newline = String.fromCharCode(13); // Illustrator uses ^M
     var strings = inputString.split(newline);
-    var result = strings.join("\\\\");
+    var result  = strings.join("\\\\");
 
     return result;
 }
 
 
-function main()
-{
+function main(){
     // check if a document is open in Illustrator.
     if (app.documents.length <= 0) {
         alert( "No document Open." );
@@ -273,6 +262,7 @@ function main()
         if (items[i].typename == "TextFrame"
             && items[i].kind == TextType.POINTTEXT
             && items[i].contents.length > 0 ) {
+            
             var xpos     = items[i].anchor[0] - left;
             var ypos     = items[i].anchor[1] - bottom;
             var just     = items[i].paragraphs[0].paragraphAttributes.justification;
@@ -303,7 +293,7 @@ function main()
         outFile.encoding = "UTF-8"; 
         outFile.open("w");
         if( ! outFile.write(tex_output) )
-            alert( "Error Writing file \"" + texfilename + "\" !" );
+            alert( "Error Writing file \"" + texfilename + "\"!" );
         outFile.close;
     }
     catch( error ) {
