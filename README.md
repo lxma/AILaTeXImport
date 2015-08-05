@@ -48,6 +48,6 @@ The script generates two files, both with the same base name as the original Ill
  - Insert \usepackage{aiimport} into the document preamble.
  
  - At the place you want to import the document just use
-   \input{<tex-file>}. The TeX file contains LaTeX instructions to
+   \input{tex-file-name}. The TeX file contains LaTeX instructions to
    place the text elements as well as the exported PDF image.
 
