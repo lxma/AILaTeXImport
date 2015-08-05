@@ -37,12 +37,11 @@ To perform the combined export, run the script. Choose File->Scripts->Other Scri
 
 The script generates two files, both with the same base name as the original Illustrator image:
 
-    1. A PDF file containing all image data except for the text
-    elements
+1. A PDF file containing all image data except for the text elements
 
-    2. A LaTeX file (with the extension ".tex") containing LaTeX
-    instructions to place all text elements and to include the PDF
-    file
+2. A LaTeX file (with the extension ".tex") containing LaTeX
+       instructions to place all text elements and to include the PDF
+       file
 
 ## Importing into LaTeX
 
