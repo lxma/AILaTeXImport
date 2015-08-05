@@ -1,0 +1,35 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{parskip}
+\usepackage{../sty/aiimport}
+
+\nonfrenchspacing
+
+\begin{document}
+\pagestyle{empty}
+    \title{Pythagorean Theorem}
+    \maketitle\thispagestyle{empty}
+
+    The Pythagorean theorem states that in a right-angled triangle where $c$ is
+    the the hypotenuse and $a$ and $b$ are the two other sides following
+    equation holds:
+    \[
+        a^2 + b^2 = c^2 \quad .
+    \]
+    The following images illustrates why Pythagoras' theorem holds:
+
+    \begin{figure}[h]
+        \centering
+        \input{pythagoras}
+    \end{figure}
+
+    Both squares have the same dimension $a+b$ and therefore have the same
+    area. Both squares contain four triangles with sides $a,b,c$ (blue).
+    The rest of the left square is occupied by a square with area $c^2$; the
+    rest of the right square is occupied with two squares with area $a^2$ and
+    $b^2$.
+
+    Therefore $c^2$ in the left square and $a^2$ and $b^2$ in the right square
+    occupy the same area which proves the theorem.
+    
+\end{document}

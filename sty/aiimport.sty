@@ -1,0 +1,70 @@
+%%
+%% aiimport: Import images from Adobe Illustrator
+%%
+
+\ProvidesPackage{aiimport}
+
+\RequirePackage{graphicx}
+\RequirePackage{xkeyval}
+\RequirePackage{myifdef}
+
+
+% Debugging - ja/nein
+\newif\ifAIdebug
+\DeclareOptionX{debug}[false]{%
+    \ifequals{#1}{true} {\AIdebugtrue}%
+    \ifequals{#1}{false}{\AIdebugfalse}%
+}
+
+% Obey AI font sizes
+\newif\ifAIfontsize
+\DeclareOptionX{fontsize}[false]{%
+    \ifequals{#1}{true} {\AIfontsizetrue}%
+    \ifequals{#1}{false}{\AIfontsizefalse}%
+}
+
+% Use AI font mapping
+\newif\ifAIfontmapping
+\DeclareOptionX{fontmapping}[false]{%
+    \ifequals{#1}{true} {\AIfontmappingtrue}%
+    \ifequals{#1}{false}{\AIfontmappingfalse}%
+}
+
+% Use AI text colors 
+\newif\ifAIcolor
+\DeclareOptionX{color}[false]{%
+    \ifequals{#1}{true} {\AIcolortrue}%
+    \ifequals{#1}{false}{\AIcolorfalse}%
+}
+
+\DeclareOptionX{rotate}[false]{%
+    \ifequals{#1}{true} {\gdef\AIrotate##1##2{\rotatebox{##1}{##2}}}%
+    \ifequals{#1}{false}{\gdef\AIrotate##1##2{##2}}%
+}
+
+\DeclareOptionX{prefix}[]{%
+    \def\AIprefix{#1}%
+}
+
+\DeclareOptionX{suffix}[]{%
+    \def\AIsuffix{#1}%
+}
+
+\ExecuteOptionsX{debug,fontsize,fontmapping,prefix,suffix,color}
+\ProcessOptionsX
+
+\def\AIfontsize#1{\ifAIfontsize\fontsize{#1}{#1}\selectfont\fi}
+\def\AIdebugspot#1#2{\ifAIdebug\put(#1,#2){\circle{3}}\put(#1,#2){\circle{6}}\fi}
+\def\AImapfont#1#2{\expandafter\def\csname MapAIF@nt#1\endcsname{#2}}
+\def\AIsetfont#1{\ifAIfontmapping\csname MapAIF@nt#1\endcsname\fi}
+\def\AIcolor#1#2#3{\ifAIcolor\color[rgb]{#1,#2,#3}\fi}
+
+\AImapfont{Times-Roman}{\rmfamily}
+\AImapfont{Times-Bold}{\bfseries}
+\AImapfont{Times-Italic}{\itshape}
+\AImapfont{Times-BoldItalic}{\itshape\bfseries}
+\AImapfont{Myriad-Roman}{\sffamily}
+\AImapfont{Myriad-Bold}{\sffamily\bfseries}
+\AImapfont{Myriad-Italic}{\sffamily\itshape}
+\AImapfont{Myriad-BoldItalic}{\sffamily\itshape\bfseries}
+
