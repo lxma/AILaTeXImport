@@ -21,7 +21,9 @@ it. You will also need the packages "graphicx" and "xkeyval" installed.
 ## Exporting from Illustrator
 Before you can start exporting you need to ensure following:
 
- - The text you want to export MUST reside in a seperate Layer named "Text".
+ - The text you want to export _must_ reside in a seperate Layer named
+   "Text". Before export to PDF this layer will be made
+   invisible. Therefore it should contain the exported text only.
  
  - All text items must be single lines of type "pointtext" (not "areatext"
    or "pathtext").
@@ -30,7 +32,7 @@ Before you can start exporting you need to ensure following:
    special characters won't work out of the box. If you stick to ASCII
    Symbols you are on the safe side.
  
- - You must to tell Illustrator NOT to use "typographers quotes". Otherwise
+ - You must to tell Illustrator _not_ to use "typographers quotes". Otherwise
    TeX will choke on quote characters (").
    
 To perform the combined export, run the script. Choose File->Scripts->Other Script and select the file "Illustrator LaTeX Export.jsx" from the js directory of the repository.
