@@ -1,3 +1,8 @@
+# Remark
+/As I don´t own Adobe Illustrator any more, there won’t be any changes with
+this repository. I suppose it still works, but I cannot test it. I keep it
+available as an exemplary resource./
+
 # AILaTeXImport
 Import Adobe Illustrator images into LaTeX
 
